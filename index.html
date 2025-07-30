@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moldesa</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+     :root {
+  --primary-color: #14213d;          /* Azul oscuro */
+  --secondary-color: #fca311;        /* Naranja */
+  --accent-color: #e5e5e5;           /* Gris claro */
+  --text-dark: #000000;              /* Negro */
+  --text-light: #ffffff;             /* Blanco */
+  --gradient-primary: linear-gradient(135deg, #7e6e4d 0%, #223e79 100%);
+  --gradient-secondary: linear-gradient(135deg, #fca311 0%, #e5e5e5 100%);
+  --shadow-soft: 0 10px 40px rgba(0, 0, 0, 0.1);
+  --shadow-strong: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+    
+        
+
+/* Header fijo */
+header {
+  position: sticky;
+  top: 0;
+  background-color: var(--primary-color);
+  z-index: 999;
+  padding: 1rem 5%;
+  box-shadow: var(--shadow-soft);
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-light);
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.logo img {
+  height: 35px; /* Ajusta el tamaño del logo aquí */
+  width: auto;
+}
+
+/* Enlaces visibles por defecto (en desktop) */
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+}
+
+.nav-links li a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.nav-links li a:hover {
+  color: var(--secondary-color);
+}
+
+/* Botón hamburguesa oculto por defecto */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 22px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1100;
+}
+
+.bar {
+  height: 3px;
+  width: 100%;
+  background-color: var(--text-light);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Animación al presionar */
+.menu-toggle.active .top-bar {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.menu-toggle.active .middle-bar {
+  opacity: 0;
+}
+
+.menu-toggle.active .bottom-bar {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+    
+       /* Hero Section */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 5%;
+  background-image: url('img/background-hero.jpg'); /* Imagen de fondo */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* Opcional: efecto parallax */
+  z-index: 1;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(212, 195, 150, 0.5);
+  z-index: 2;
+}
+
+.hero-grid {
+  position: relative;
+  z-index: 3;
+    display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 2rem;
+  max-width: 1200px;
+  width: 100%;
+}
+
+
+.hero-text span {
+  font-weight: bold;
+  font-size: 3rem;
+  color: var(--text-light);
+  text-shadow: 2px 2px 4px rgba(74, 74, 74, 0.7);
+}
+
+.hero-text h1 {
+  font-size: 1.3rem;
+  margin: 1rem 0 2rem;
+  color: var(--text-light);
+  padding-right: 56px;
+ text-shadow: 2px 2px 4px rgba(74, 74, 74, 0.7);
+}
+
+
+.hero-image img {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  display: block;
+  border-radius: 20px;
+  box-shadow: var(--shadow-soft);
+}
+
+   /* Mostrar solo en pantallas grandes (≥769px) */
+.cta-button-1 {
+  display: inline-block;
+}
+
+/* Ocultar en móviles */
+.cta-button-2 {
+  display: none;
+}
+
+  .cta-button-1 {
+    display: inline-block;
+    margin-top: 2rem;
+    background: var(--gradient-primary);
+    color: var(--text-light);
+    padding: 1rem 2rem;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    animation: fadeInUp 1s ease 0.6s both;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .cta-button-1:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-strong);
+  }
+       /* Secciones */
+        .section {
+            padding: 10rem 8%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+          .section-title-izquierdo {
+            text-align: left;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--primary-color);
+            position: relative;
+        }
+
+        .section-title-center {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--primary-color);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--gradient-secondary);
+        }
+
+        /* Nosotros */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .about-image {
+            width: 100%;
+            height: 400px;
+            background: var(--gradient-primary);
+            border-radius: 20px;
+            box-shadow: var(--shadow-soft);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-image::before {
+            content: '🧘‍♀️';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4rem;
+            
+        }
+
+        /* Servicios */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: var(--accent-color);
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-strong);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .service-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        /* Galería */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+
+        .gallery-item {
+            height: 250px;
+            background: var(--gradient-primary);
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-strong);
+        }
+
+        .gallery-item::before {
+            content: '🌸';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover::before {
+            transform: translate(-50%, -50%) scale(1.2);
+        }
+
+        /* Testimonios */
+        .testimonials-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial {
+            background: var(--accent-color);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-soft);
+            position: relative;
+        }
+
+        .testimonial::before {
+            content: '"';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            font-size: 4rem;
+            color: var(--secondary-color);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        /* FAQ */
+        .faq-container {
+            max-width: 800px;
+            margin: 3rem auto 0;
+        }
+
+        .faq-item {
+            background: var(--accent-color);
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 1.5rem;
+            background: none;
+            border: none;
+            text-align: left;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: rgba(44, 85, 48, 0.1);
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-answer.open {
+            max-height: 200px;
+            padding: 0 1.5rem 1.5rem;
+        }
+
+        /* Call to Action */
+        .cta-section {
+            background: var(--gradient-primary);
+            color: var(--text-light);
+            text-align: center;
+            padding: 4rem 5%;
+            margin-top: 4rem;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .cta-button-white {
+            background: white;
+            color: var(--primary-color);
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .cta-button-white:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-strong);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-dark);
+            color: var(--text-light);
+            text-align: center;
+            padding: 2rem 5%;
+        }
+
+
+/* ================================
+   SMART TV (≥ 1400px)
+================================ */
+@media (min-width: 1400px) {
+  .hero span {
+    font-size: 5rem;
+  }
+
+  .section {
+    padding: 6rem 5%;
+  }
+
+  .services-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+
+/* ================================
+   DESKTOP + NETBOOKS (≥ 1024px y < 1400px)
+   (Puedes agregar aquí si necesitás ajustes específicos)
+================================ */
+/* OPCIONAL */
+
+
+/* ================================
+   TABLET / NETBOOK (≤ 1023px)
+================================ */
+@media (max-width: 1023px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    background: var(--primary-color);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    padding: 2rem 0;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+}
+
+
+/* ================================
+   TABLET / MÓVILES GRANDES (≤ 768px)
+================================ */
+@media (max-width: 768px) {
+    
+  .hero-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .hero span {
+    font-size: 2.5rem;
+    padding-right: 0;
+  }
+
+  .hero-text h1 {
+  font-size: 1.5rem;
+  text-align: center;
+  padding: 0 20px;
+}
+
+
+  .about-content {
+    grid-template-columns: 1fr;
+  }
+
+  .section {
+    padding: 3rem 5%;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .cta-button-1 {
+    display: none;
+  }
+
+  .cta-button-2 {
+    display: inline-block;
+    margin-top: 2rem;
+    background: var(--gradient-primary);
+    color: var(--text-light);
+    padding: 1rem 2rem;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    animation: fadeInUp 1s ease 0.6s both;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .cta-button-2:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-strong);
+  }
+}
+
+
+/* ================================
+   MÓVILES ESTÁNDAR (≤ 480px)
+================================ */
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .testimonials-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ================================
+   MÓVILES MUY PEQUEÑOS (≤ 360px)
+   (OPCIONAL si querés más ajustes)
+================================ */
+/* @media (max-width: 360px) {
+   // Agrega aquí si es necesario
+} */
+
+    </style>
+</head>
+<body>
+     
+<header id="header"> 
+  <nav>
+<a href="#" class="logo">
+  <img src="img/logo_blanco_moldesa.png" alt="moldesa-logo">
+  Moldesa
+</a>
+    
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#galeria">Galería</a></li>
+      <li><a href="#testimonios">Testimonios</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+
+    <!-- Botón hamburguesa -->
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+      <span class="bar top-bar"></span>
+      <span class="bar middle-bar"></span>
+      <span class="bar bottom-bar"></span>
+    </button>
+  </nav>
+</header>
+
+
+  <section id="inicio" class="hero">
+  <div class="hero-grid">
+    <div class="hero-text">
+      <span>Moldesa</span>
+      <h1>Moldes de Cauchos Siliconados Para Fabricar Placas-Antihumedad.</h1>
+      <a href="#contacto" class="cta-button-1">Reserva tu cita</a>
+    </div>
+    <div class="hero-image">
+      <img src="img/hero_moldes.jpg" alt="Imagen hero spa">
+    </div>
+     <a href="#contacto" class="cta-button-2">Reserva tu cita</a>
+  </div>
+ 
+</section>
+
+    <section id="nosotros" class="section">
+        <div class="about-content">
+            <div class="about-text">
+                 <h2 class="section-title-izquierdo  animate-on-scroll">Sobre Nosotros</h2>
+                <p>En Serenity Spa, creemos que el bienestar es un viaje, no un destino. Desde hace más de 10 años, nos dedicamos a crear experiencias únicas que nutren el cuerpo, la mente y el espíritu.</p>
+                <p>Nuestro equipo de profesionales altamente capacitados utiliza técnicas tradicionales y modernas para ofrecerte tratamientos personalizados que se adaptan a tus necesidades específicas.</p>
+                <p>Ubicados en un entorno sereno y elegante, cada visita a nuestro spa es una oportunidad para desconectar del estrés diario y reconectar contigo mismo.</p>
+            </div>
+            <div class="about-image"></div>
+        </div>
+    </section>
+
+    <section id="servicios" class="section">
+        <h2 class="section-title-center animate-on-scroll">Nuestros Servicios</h2>
+        <div class="services-grid">
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon">💆‍♀️</div>
+                <h3>Masajes Relajantes</h3>
+                <p>Masajes terapéuticos que alivian tensiones y restauran la energía natural de tu cuerpo.</p>
+            </div>
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon">🧖‍♀️</div>
+                <h3>Tratamientos Faciales</h3>
+                <p>Cuidados especializados para rejuvenecer y revitalizar tu piel con productos naturales.</p>
+            </div>
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon">🛁</div>
+                <h3>Hidroterapia</h3>
+                <p>Experiencias acuáticas que estimulan la circulación y proporcionan relajación profunda.</p>
+            </div>
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon">🧘‍♀️</div>
+                <h3>Yoga y Meditación</h3>
+                <p>Sesiones guiadas para encontrar equilibrio interior y fortalecer cuerpo y mente.</p>
+            </div>
+             <div class="service-card animate-on-scroll">
+                <div class="service-icon">🧘‍♀️</div>
+                <h3>Yoga y Meditación</h3>
+                <p>Sesiones guiadas para encontrar equilibrio interior y fortalecer cuerpo y mente.</p>
+            </div>
+             <div class="service-card animate-on-scroll">
+                <div class="service-icon">🧘‍♀️</div>
+                <h3>Yoga y Meditación</h3>
+                <p>Sesiones guiadas para encontrar equilibrio interior y fortalecer cuerpo y mente.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="galeria" class="section">
+        <h2 class="section-title-center animate-on-scroll">Galería</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item animate-on-scroll"></div>
+            <div class="gallery-item animate-on-scroll"></div>
+            <div class="gallery-item animate-on-scroll"></div>
+            <div class="gallery-item animate-on-scroll"></div>
+            <div class="gallery-item animate-on-scroll"></div>
+            <div class="gallery-item animate-on-scroll"></div>
+            <div class="gallery-item animate-on-scroll"></div>
+            <div class="gallery-item animate-on-scroll"></div>
+        </div>
+    </section>
+
+    <section id="testimonios" class="section">
+        <h2 class="section-title-center animate-on-scroll">Testimonios</h2>
+        <div class="testimonials-container">
+            <div class="testimonial animate-on-scroll">
+                <p class="testimonial-text">Una experiencia transformadora. El ambiente es perfecto y los tratamientos son excepcionales. Salí sintiendo como una nueva persona.</p>
+                <p class="testimonial-author">- María González</p>
+            </div>
+            <div class="testimonial animate-on-scroll">
+                <p class="testimonial-text">El personal es increíblemente profesional y atento. Cada detalle está cuidado para crear una experiencia inolvidable.</p>
+                <p class="testimonial-author">- Carlos Rodríguez</p>
+            </div>
+            <div class="testimonial animate-on-scroll">
+                <p class="testimonial-text">Mi lugar favorito para desconectar. Los masajes son extraordinarios y el ambiente es simplemente perfecto.</p>
+                <p class="testimonial-author">- Ana Martínez</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="section">
+        <h2 class="section-title-center animate-on-scroll">Preguntas Frecuentes</h2>
+        <div class="faq-container">
+            <div class="faq-item animate-on-scroll">
+                <button class="faq-question" onclick="toggleFAQ(this)">¿Necesito reservar con anticipación?</button>
+                <div class="faq-answer">
+                    <p>Sí, recomendamos reservar con al menos 24 horas de anticipación para garantizar disponibilidad, especialmente los fines de semana.</p>
+                </div>
+            </div>
+            <div class="faq-item animate-on-scroll">
+                <button class="faq-question" onclick="toggleFAQ(this)">¿Qué debo traer para mi visita?</button>
+                <div class="faq-answer">
+                    <p>Proporcionamos todo lo necesario: toallas, batas, zapatillas. Solo necesitas traer tu ropa interior y ganas de relajarte.</p>
+                </div>
+            </div>
+            <div class="faq-item animate-on-scroll">
+                <button class="faq-question" onclick="toggleFAQ(this)">¿Cuánto tiempo antes debo llegar?</button>
+                <div class="faq-answer">
+                    <p>Te recomendamos llegar 15 minutos antes de tu cita para completar el registro y comenzar a relajarte.</p>
+                </div>
+            </div>
+            <div class="faq-item animate-on-scroll">
+                <button class="faq-question" onclick="toggleFAQ(this)">¿Ofrecen paquetes especiales?</button>
+                <div class="faq-answer">
+                    <p>Sí, tenemos paquetes de día completo, medio día y promociones especiales para parejas y grupos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <h2 class="animate-on-scroll">¿Listo para tu experiencia de bienestar?</h2>
+        <p class="animate-on-scroll">Reserva tu cita hoy y descubre por qué somos el spa favorito de la ciudad</p>
+        <button class="cta-button-white animate-on-scroll" onclick="openBooking()">Reservar Ahora</button>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Serenity Spa. Todos los derechos reservados.</p>
+        <p>📍 Av. Bienestar 123, Ciudad • 📞 (555) 123-4567 • ✉️ info@serenityspa.com</p>
+    </footer>
+
+    <script>
+    // Menú móvil hamburguesa
+  const menuToggle = document.getElementById('menuToggle');
+  const navLinks = document.getElementById('navLinks');
+
+  menuToggle.addEventListener('click', () => {
+    menuToggle.classList.toggle('active');
+    navLinks.classList.toggle('active');
+  });
+    // FAQ Toggle
+    function toggleFAQ(button) {
+        const answer = button.nextElementSibling;
+        const isOpen = answer.classList.contains('open');
+
+        // Cerrar todas las respuestas
+        document.querySelectorAll('.faq-answer').forEach(item => {
+            item.classList.remove('open');
+        });
+
+        // Abrir la seleccionada si estaba cerrada
+        if (!isOpen) {
+            answer.classList.add('open');
+        }
+    }
+
+    // Función de reserva
+    function openBooking() {
+        alert('¡Funcionalidad de reserva activada! Aquí se abriría el sistema de reservas.');
+    }
+
+    // Efectos al cargar el DOM
+    document.addEventListener('DOMContentLoaded', () => {
+        // Hover effects para las cards
+        document.querySelectorAll('.service-card, .gallery-item').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
